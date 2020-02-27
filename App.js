@@ -5,51 +5,37 @@
  * @format
  * @flow
  */
+/* eslint-disable eol-last */
+/* eslint-disable prettier/prettier */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
 import styled from 'styled-components';
+import { NativeRouter, Switch, Route } from 'react-router-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Home from './Views/Home';
+import FirstTool from './Views/FirstTool';
+import te from './Views/te';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <Container>
-        <Title>swipe for more chuck</Title>
-      </Container>
-    </>
-  );
-};
+export default class App extends React.Component {
+  render() {
+    return (
+      <NativeRouter>
+        <Container>
+          <Switch>
+            {/* routes */}
+            <Route exact path="/" component={Home} />
+            <Route exact path="/firsttool" component={FirstTool} />
+            <Route exact path="/te" component={te} />
+          </Switch>
+        </Container>
+      </NativeRouter>
+    );
+  }
+}
 
 const Container = styled.View`
   flex: 1;
   background-color: white;
   justify-content: center;
   align-items: center;
-`;
-
-const Title = styled.Text`
-  position: absolute;
-  font-size: 28px;
-  text-shadow: 2px 2px 10px #000000;
-  font-weight: 700;
-  color: white;
-  margin: 20px;
-`;
-
-export default App;
+  `;
