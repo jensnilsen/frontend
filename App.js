@@ -5,16 +5,12 @@
  * @format
  * @flow
  */
-/* eslint-disable eol-last */
-/* eslint-disable prettier/prettier */
 
 import React from 'react';
 import styled from 'styled-components';
-import { NativeRouter, Switch, Route } from 'react-router-native';
+import {NativeRouter, Switch} from 'react-router-native';
 
-import Home from './Views/Home';
-import FirstTool from './Views/FirstTool';
-import te from './Views/te';
+import Routes from './Routes/Routes';
 
 export default class App extends React.Component {
   render() {
@@ -22,10 +18,7 @@ export default class App extends React.Component {
       <NativeRouter>
         <Container>
           <Switch>
-            {/* routes */}
-            <Route exact path="/" component={Home} />
-            <Route exact path="/firsttool" component={FirstTool} />
-            <Route exact path="/te" component={te} />
+            <Routes />
           </Switch>
         </Container>
       </NativeRouter>
@@ -38,4 +31,4 @@ const Container = styled.View`
   background-color: white;
   justify-content: center;
   align-items: center;
-  `;
+`;

@@ -7,16 +7,13 @@ export default ({history}) => {
       <Scroll>
         <Container3>
           <Welcome>Login</Welcome>
-
-          <Container2>
-            <Button onPress={() => history.push('/patientLogin')}>
-              <ButtonText>Patient Login</ButtonText>
-            </Button>
-            <Button onPress={() => history.push('/therapistLogin')}>
-              <ButtonText>Therapist Login</ButtonText>
-            </Button>
-          </Container2>
+          <Button onPress={() => history.push('/')}>
+            <ButtonText>Login</ButtonText>
+          </Button>
         </Container3>
+        <Button2 onPress={() => history.push('/')}>
+          <ButtonText>tillbaka</ButtonText>
+        </Button2>
       </Scroll>
     </Container>
   );
@@ -30,9 +27,7 @@ const Container = styled.View`
   background-color: #fbeee6;
 `;
 
-const Container2 = styled.View``;
 const Container3 = styled.View``;
-
 const Scroll = styled.ScrollView``;
 
 const Welcome = styled.Text`
@@ -42,8 +37,10 @@ const Welcome = styled.Text`
   align-self: center;
   font-size: 40px;
 `;
+
 const ButtonText = styled.Text`
   color: gray;
+  font-size: 30px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -52,7 +49,24 @@ const Button = styled.TouchableOpacity`
   color: white;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 80px;
+  margin: 5px;
+  shadow-color: #000;
+  shadow-offset: {width: 0, height: 12};
+  shadow-opacity: 0.55;
+  shadow-radius: 15;
+  elevation: 22;
+  margin-bottom: 40px;
+`;
+
+const Button2 = styled.TouchableOpacity`
+  flex: 1;
+  background-color: #FBEEE6;
+  color: white;
+  justify-content: center;
+  align-self: flex-start;
+  height: 50px;
+  padding: 20px;
   margin: 5px;
   shadow-color: #000;
   shadow-offset: {width: 0, height: 12};
