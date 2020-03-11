@@ -4,60 +4,60 @@ import React from 'react';
 export default ({history}) => {
   return (
     <Container>
-      <Scroll>
-        <Container3>
-          <Welcome>Login</Welcome>
-
-          <Container2>
-            <Button onPress={() => history.push('/patientLogin')}>
-              <ButtonText>Patient Login</ButtonText>
-            </Button>
-            <Button onPress={() => history.push('/therapistLogin')}>
-              <ButtonText>Therapist Login</ButtonText>
-            </Button>
-          </Container2>
-        </Container3>
-      </Scroll>
+      <ButtonWrapper>
+        <PatientButton onPress={() => history.push('/patientLogin')}>
+          <ButtonText>Patient Login</ButtonText>
+        </PatientButton>
+        <TherapistButton onPress={() => history.push('/therapistLogin')}>
+          <ButtonText>Therapist Login</ButtonText>
+        </TherapistButton>
+        <FormButton onPress={() => history.push('/form')}>
+          <ButtonText>form</ButtonText>
+        </FormButton>
+      </ButtonWrapper>
     </Container>
   );
 };
 
 const Container = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: stretch;
   flex-direction: row;
+  justify-content: space-between;
   background-color: #fbeee6;
+  align-items: stretch;
 `;
-
-const Container2 = styled.View``;
-const Container3 = styled.View``;
-
-const Scroll = styled.ScrollView``;
-
-const Welcome = styled.Text`
-  color: gray;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  align-self: center;
-  font-size: 40px;
-`;
-const ButtonText = styled.Text`
-  color: gray;
-`;
-
-const Button = styled.TouchableOpacity`
+const ButtonWrapper = styled.View`
   flex: 1;
-  background-color: #FBEEE6;
+  flex-direction: column;
+`;
+
+const ButtonText = styled.Text`
+  color: #555555;
+`;
+
+const PatientButton = styled.TouchableOpacity`
+  flex: 1;
+  position: relative;
+  background-color: #fbeee6;
   color: white;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  margin: 5px;
-  shadow-color: #000;
-  shadow-offset: {width: 0, height: 12};
-  shadow-opacity: 0.55;
-  shadow-radius: 15;
-  elevation: 22;
-  margin-bottom: 40px;
+`;
+
+const TherapistButton = styled.TouchableOpacity`
+  flex: 1;
+  position: relative;
+  background-color: #f8e5d8;
+  color: white;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FormButton = styled.TouchableOpacity`
+  flex: 1;
+  position: relative;
+  background-color: #f6ddcc;
+  color: white;
+  justify-content: center;
+  align-items: center;
 `;

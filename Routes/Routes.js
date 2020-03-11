@@ -3,6 +3,7 @@ import {Route} from 'react-router-native';
 import Home from '../Views/Home';
 import TherapistLogin from '../Views/TherapistLogin';
 import PatientLoggin from '../Views/PatientLoggin';
+import Form from '../Views/Form';
 
 export default () => {
   return (
@@ -10,6 +11,7 @@ export default () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/therapistLogin" component={TherapistLogin} />
       <Route exact path="/patientLogin" component={PatientLoggin} />
+      <Route exact path="/form" component={Form} />
     </>
   );
 };

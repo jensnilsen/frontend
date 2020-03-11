@@ -5,7 +5,7 @@ export default ({history}) => {
   return (
     <Container>
       <Scroll>
-        <Welcome>Login</Welcome>
+        <Welcome>Loginssss</Welcome>
         <Button onPress={() => history.push('/')}>
           <ButtonText>Login</ButtonText>
         </Button>
@@ -62,9 +62,9 @@ const Button = styled.TouchableOpacity`
   height: 80px;
   margin: 5px;
   shadow-color: #000;
-  shadow-offset: {width: 0, height: 12};
+  shadow-offset: {width: 0px, height: 12px};
   shadow-opacity: 0.55;
-  shadow-radius: 15;
+  shadow-radius: 15px;
   elevation: 22;
   margin-bottom: 40px;
 `;
@@ -79,9 +79,9 @@ const Button2 = styled.TouchableOpacity`
   padding: 20px;
   margin: 5px;
   shadow-color: #000;
-  shadow-offset: {width: 0, height: 12};
+  shadow-offset: {width: 0px, height: 12px};
   shadow-opacity: 0.55;
-  shadow-radius: 15;
+  shadow-radius: 15px;
   elevation: 22;
   margin-bottom: 40px;
 `;

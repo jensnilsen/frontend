@@ -16,6 +16,7 @@ export default class App extends React.Component {
   render() {
     return (
       <NativeRouter>
+        <Header />
         <Container>
           <Switch>
             <Routes />
@@ -27,8 +28,12 @@ export default class App extends React.Component {
 }
 
 const Container = styled.View`
-  flex: 1;
+  flex: 11;
   background-color: white;
   justify-content: center;
   align-items: center;
+`;
+
+const Header = styled.View`
+  flex: 1;
 `;
