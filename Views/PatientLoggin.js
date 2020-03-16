@@ -1,87 +1,171 @@
+/* eslint-disable no-shadow */
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import React from 'react';
 
 export default ({history}) => {
+  const [loginFailed, setLoginFailed] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const formValues = {username, password};
+
+  const clearInputs = () => {
+    setUsername({username: ''});
+    setPassword({password: ''});
+  };
+
+  const handleSubmit = () => {
+    console.log('handling submit', formValues);
+    fetch('http://192.168.0.12:8080/userlogin', {
+      method: 'POST',
+      body: JSON.stringify(formValues),
+      headers: {'Content-Type': 'application/json'},
+    })
+      .then(response => {
+        if (response.status !== 200) {
+          setLoginFailed(true);
+          return console.log('nope');
+        }
+
+        response.json().then(data => {
+          if (data.notFound !== true) {
+            clearInputs();
+            setLoginFailed(false);
+            history.push('/home');
+            console.log('login ok');
+          } else {
+            setLoginFailed(true);
+            clearInputs();
+            console.log('login fail props wrong user or pass');
+          }
+        });
+      })
+      .catch(err => console.log('error:', err));
+  };
+
   return (
-    <Container>
-      <Scroll>
-        <Welcome>Loginssss</Welcome>
-        <Button onPress={() => history.push('/')}>
+    <Wrapper>
+      <Form>
+        {loginFailed ? (
+          <LoginFailed>Incorrect username or password</LoginFailed>
+        ) : (
+          <LoginText>Please Login</LoginText>
+        )}
+        <AllInputWrapper>
+          <Label>
+            <InputHeader>Username:</InputHeader>
+            <Input
+              onChangeText={username => setUsername(username)}
+              value={username}
+              type="text"
+              placeholder="Username"
+              placeholderTextColor="#fcd6bd"
+              required
+            />
+          </Label>
+
+          <Label>
+            <InputHeader>Password:</InputHeader>
+            <Input
+              onChangeText={password => setPassword(password)}
+              value={password}
+              type="password"
+              placeholder="**********"
+              placeholderTextColor="#fcd6bd"
+              secureTextEntry={true}
+              password={true}
+              required
+            />
+          </Label>
+        </AllInputWrapper>
+        <GoToButton type="submit" onPress={() => handleSubmit()}>
           <ButtonText>Login</ButtonText>
-        </Button>
-        <Button2 onPress={() => history.push('/')}>
-          <ButtonText>tillbaka</ButtonText>
-        </Button2>
-      </Scroll>
-    </Container>
+        </GoToButton>
+        <ChangeLoginButton
+          type="button"
+          onPress={() => history.push('/therapistlogin')}>
+          <ChangeButtonText>Admin login</ChangeButtonText>
+        </ChangeLoginButton>
+        <ChangeLoginButton
+          type="button"
+          onPress={() => history.push('/adminhome')}>
+          <ChangeButtonText>Adminhome</ChangeButtonText>
+        </ChangeLoginButton>
+        <ChangeLoginButton
+          type="button"
+          onPress={() => history.push('/patienthome')}>
+          <ChangeButtonText>Patienthome</ChangeButtonText>
+        </ChangeLoginButton>
+      </Form>
+    </Wrapper>
   );
 };
 
-const Container = styled.View`
+const Form = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: stretch;
-  flex-direction: row;
-  background-color: #fbeee6;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 15px;
 `;
-const Scroll = styled.ScrollView``;
+const Label = styled.View``;
 
-const Welcome = styled.Text`
-  color: gray;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  align-self: center;
+const AllInputWrapper = styled.View`
+  flex: 1;
+  width: 100%;
+`;
+
+const InputHeader = styled.Text`
+  margin-top: 20px;
+  color: black;
+  font-size: 20px;
+`;
+const Input = styled.TextInput`
+  padding: 3px;
   font-size: 40px;
+  border-bottom-width: 3px;
+  border-bottom-color: #e9a97f;
 `;
-
-// const Input = styled.TextInput`
-//   height: 80px;
-//   padding-left: 22px
-//   padding-top: 15px;
-//   margin-bottom: 10px;
-//   shadow-color: #000;
-//   shadow-offset: {width: 0, height: 16};
-//   shadow-opacity: 0.1;
-//   elevation: 2;
-//   align-items: center;
-//   font-size: 20px;
-//   color: gray;
-// `;
-
+const LoginFailed = styled.Text`
+  padding-top: 25px;
+  font-weight: 700;
+  color: red;
+`;
+const LoginText = styled.Text`
+  padding-top: 25px;
+  font-weight: 700;
+  color: black;
+`;
 const ButtonText = styled.Text`
-  color: gray;
-  font-size: 30px;
+  font-size: 16px;
+  color: #f5f3f5;
 `;
 
-const Button = styled.TouchableOpacity`
+const ChangeButtonText = styled.Text`
+  font-size: 16px;
+  color: #e9a97f;
+`;
+
+const Wrapper = styled.View`
   flex: 1;
-  background-color: #FBEEE6;
-  color: white;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const GoToButton = styled.TouchableOpacity`
+  background-color: #e9a97f;
   justify-content: center;
   align-items: center;
-  height: 80px;
+  border-radius: 10px;
+  height: 55px;
+  width: 90%;
   margin: 5px;
+  padding: 20px;
   shadow-color: #000;
-  shadow-offset: {width: 0px, height: 12px};
-  shadow-opacity: 0.55;
-  shadow-radius: 15px;
-  elevation: 22;
-  margin-bottom: 40px;
+  elevation: 5;
 `;
 
-const Button2 = styled.TouchableOpacity`
-  flex: 1;
-  background-color: #FBEEE6;
-  color: white;
-  justify-content: center;
-  align-self: flex-start;
-  height: 50px;
-  padding: 20px;
-  margin: 5px;
-  shadow-color: #000;
-  shadow-offset: {width: 0px, height: 12px};
-  shadow-opacity: 0.55;
-  shadow-radius: 15px;
-  elevation: 22;
-  margin-bottom: 40px;
+const ChangeLoginButton = styled.TouchableOpacity`
+  border-bottom-width: 1px;
+  border-bottom-color: #e9a97f;
+  margin-top: 20px;
 `;

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import styled from 'styled-components';
 import React, {useState} from 'react';
 
@@ -23,7 +24,7 @@ export default ({history}) => {
   return (
     <MainContainer>
       <HomexButton onPress={() => history.push('/')}>
-        <ButtonX>x</ButtonX>
+        <ButtonX>✖️</ButtonX>
       </HomexButton>
       <MainContainer2>
         <FormContainer>
@@ -93,10 +94,8 @@ export default ({history}) => {
                   <Input
                     type="text"
                     required
-                    numberOfLines={3}
                     value={tanke}
                     placeholder="tanke"
-                    multiline={true}
                     onChangeText={tanke => setTanke(tanke)}
                   />
                   <InputHeadWrap>
@@ -108,10 +107,8 @@ export default ({history}) => {
                   <Input
                     type="text"
                     required
-                    numberOfLines={3}
                     value={kansla}
                     placeholder="känsla"
-                    multiline={true}
                     onChangeText={kansla => setKansla(kansla)}
                   />
                   <InputHeadWrap>
@@ -123,10 +120,8 @@ export default ({history}) => {
                   <Input
                     type="text"
                     required
-                    numberOfLines={3}
                     value={kropp}
                     placeholder="kropp"
-                    multiline={true}
                     onChangeText={kropp => setKropp(kropp)}
                   />
                 </FormSection>
@@ -134,17 +129,63 @@ export default ({history}) => {
               {question === 3 && (
                 <FormSection>
                   <Welcome>soRkk lorem </Welcome>
-                  <P>
-                    Lorem Ipsum är en utfyllnadstext från tryck- och
-                    förlagsindustrin. Lorem ipsum har varit standard ända sedan
-                    1500-talet, när en okänd boksättare tog att antal bokstäver
-                    och blandade dem för att göra ett provexemplar av en bok.
-                    Lorem ipsum har inte bara överlevt fem århundraden, utan
-                    även övergången till elektronisk typografi utan större
-                    förändringar. Det blev allmänt känt på 1960-talet i samband
-                    med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
-                    och senare med mjukvaror som Aldus PageMaker.
-                  </P>
+                  <ScrollContainer>
+                    <P>
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
+                      Aldus PageMaker. med lanseringen av Letraset-ark med
+                      avsnitt av Lorem Ipsum, och senare med mjukvaror som Aldus
+                      PageMaker. Lorem Ipsum är en utfyllnadstext från tryck-
+                      och förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. av en bok. Lorem ipsum har inte bara överlevt
+                      fem århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
+                      Lorem Ipsum är en utfyllnadstext från tryck- och tryck-
+                      och förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare bokstäver och
+                      blandade dem för att göra ett provexemplar provexemplar av
+                      en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
+                      Det blev allmänt känt på 1960-talet i samband med
+                      lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
+                      och senare med mjukvaror som Aldus PageMaker. med
+                      lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
+                      och senare med mjukvaror som Aldus PageMaker. Lorem Ipsum
+                      är en utfyllnadstext från tryck- och förlagsindustrin.
+                      Lorem ipsum har varit standard ända sedan 1500-talet, när
+                      en okänd boksättare tog att antal bokstäver och blandade
+                      dem för att göra ett provexemplar av en bok. av en bok.
+                      Lorem ipsum har inte bara överlevt fem århundraden, utan
+                      även övergången till elektronisk typografi utan större
+                      förändringar. Det blev allmänt känt på 1960-talet i
+                      samband med lanseringen av Letraset-ark med avsnitt av
+                      Lorem Ipsum, och senare med mjukvaror som Lorem Ipsum är
+                      en utfyllnadstext från tryck- och tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare bokstäver och
+                      blandade dem för att göra ett provexemplar provexemplar av
+                      en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
+                      Aldus PageMaker. Aldus PageMaker.
+                    </P>
+                  </ScrollContainer>
                 </FormSection>
               )}
               {question === 4 && (
@@ -240,6 +281,10 @@ const MainContainer2 = styled.View`
 
 const FormContainer = styled.View``;
 
+const ScrollContainer = styled.ScrollView`
+  height: 85%;
+`;
+
 const FormView = styled.View`
   align-items: center;
   flex-direction: row;
@@ -315,13 +360,14 @@ const Input = styled.TextInput`
 `;
 
 const ButtonX = styled.Text`
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
 `;
 
 const HomexButton = styled.TouchableOpacity`
   color: white;
   margin-right: 10px;
+  margin-top: 10px;
   align-self: flex-end;
 `;
 

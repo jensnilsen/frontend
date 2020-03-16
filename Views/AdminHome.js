@@ -5,8 +5,8 @@ export default ({history}) => {
   return (
     <Container>
       <ButtonWrapper>
-        <PatientButton onPress={() => history.push('/patientLogin')}>
-          <ButtonText>Patient Login</ButtonText>
+        <PatientButton onPress={() => history.push('/test')}>
+          <ButtonText>Patients</ButtonText>
         </PatientButton>
         <TherapistButton onPress={() => history.push('/therapistLogin')}>
           <ButtonText>Therapist Login</ButtonText>

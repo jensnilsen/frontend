@@ -9,6 +9,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {NativeRouter, Switch} from 'react-router-native';
+import Header from './Components/Header';
 
 import Routes from './Routes/Routes';
 
@@ -32,8 +33,4 @@ const Container = styled.View`
   background-color: white;
   justify-content: center;
   align-items: center;
-`;
-
-const Header = styled.View`
-  flex: 1;
 `;
