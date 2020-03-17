@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 export default () => {
   const [data, setData] = useState([]);
-  const url = 'http://192.168.0.12:8080/sorkk';
+  const url = 'http://192.168.0.12:8080/assignment';
 
   useEffect(() => {
     fetch(url)
@@ -19,7 +19,7 @@ export default () => {
     <C>
       <T>Jensa debug text</T>
       {data.map(d => (
-        <T key={d._id}>Text kropp value: {d.kropp}</T>
+        <T key={d._id}>{d.kropp}</T>
       ))}
     </C>
   );

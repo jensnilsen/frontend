@@ -15,19 +15,11 @@ export default ({history}) => {
   const [submit, setSubmit] = useState(false);
   const [situation, setSituation] = useState('');
   const [tanke, setTanke] = useState('');
-  const [kansla, setKansla] = useState('');
+  const [lukt, setLukt] = useState('');
   const [kropp, setKropp] = useState('');
-  const [complete, setComplete] = useState(false);
   const [assignmentId, setAssignmentId] = useState('');
 
-  const formValues = {
-    assignmentId,
-    situation,
-    tanke,
-    kansla,
-    kropp,
-    complete,
-  };
+  const formValues = {assignmentId, situation, tanke, lukt, kropp};
 
   // const clearInputs = () => {
   //   setSituation({situation: ''});
@@ -37,12 +29,11 @@ export default ({history}) => {
   // };
 
   const handleAssignmentId = () => {
-    setAssignmentId('sorkk');
+    setAssignmentId('gravling');
     handleNext(question + 1);
   };
 
   const handleSubmit = () => {
-    setComplete(true);
     console.log('handling sorkk answers', formValues);
     fetch('http://192.168.0.12:8080/assignment', {
       method: 'POST',
@@ -166,9 +157,9 @@ export default ({history}) => {
                   <Input
                     type="text"
                     required
-                    value={kansla}
+                    value={lukt}
                     placeholder="känsla"
-                    onChangeText={kansla => setKansla(kansla)}
+                    onChangeText={lukt => setLukt(lukt)}
                   />
                   <InputHeadWrap>
                     <InputHeader>situiation</InputHeader>
@@ -335,7 +326,7 @@ export default ({history}) => {
             <FormSection>
               <P>Situation: {situation}</P>
               <P>Tanke: {tanke}</P>
-              <P>Känsla: {kansla}</P>
+              <P>Lukt: {lukt}</P>
               <P>Kropp: {kropp}</P>
             </FormSection>
           </MainContainer2>

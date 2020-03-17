@@ -12,7 +12,10 @@ export default ({history}) => {
           <ButtonText>Therapist Login</ButtonText>
         </TherapistButton>
         <FormButton onPress={() => history.push('/form')}>
-          <ButtonText>form</ButtonText>
+          <ButtonText>Sorkk</ButtonText>
+        </FormButton>
+        <FormButton onPress={() => history.push('/gravling')}>
+          <ButtonText>Gravling</ButtonText>
         </FormButton>
       </ButtonWrapper>
     </Container>

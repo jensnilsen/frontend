@@ -8,6 +8,7 @@ import Test from '../Views/Test';
 import AdminHome from '../Views/AdminHome';
 import PatientHome from '../Views/PatientHome';
 import Header from '../Components/Header';
+import Gravling from '../Views/Gravling';
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
       <Route exact path="/therapistLogin" component={TherapistLogin} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/form" component={Form} />
+      <Route exact path="/gravling" component={Gravling} />
       <Route exact path="/test" component={Test} />
       <Route exact path="/adminhome" component={AdminHome} />
       <Route exact path="/patienthome" component={PatientHome} />
