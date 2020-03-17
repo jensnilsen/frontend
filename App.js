@@ -17,7 +17,6 @@ export default class App extends React.Component {
   render() {
     return (
       <NativeRouter>
-        <Header />
         <Container>
           <Switch>
             <Routes />

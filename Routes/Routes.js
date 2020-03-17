@@ -7,6 +7,7 @@ import Form from '../Views/Form';
 import Test from '../Views/Test';
 import AdminHome from '../Views/AdminHome';
 import PatientHome from '../Views/PatientHome';
+import Header from '../Components/Header';
 
 export default () => {
   return (
@@ -18,6 +19,7 @@ export default () => {
       <Route exact path="/test" component={Test} />
       <Route exact path="/adminhome" component={AdminHome} />
       <Route exact path="/patienthome" component={PatientHome} />
+      <Route exact path="/header" component={Header} />
     </>
   );
 };

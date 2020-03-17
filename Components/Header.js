@@ -12,7 +12,6 @@ export default ({history}) => {
 };
 
 const MainContainer = styled.View`
-  flex: 1;
   align-items: flex-end;
 `;
 

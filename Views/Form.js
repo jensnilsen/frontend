@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import styled from 'styled-components';
 import React, {useState} from 'react';
+import Header from '../Components/Header';
 
 export default ({history}) => {
   const [question, setQuestion] = useState(0);
@@ -12,17 +13,47 @@ export default ({history}) => {
     setQuestion(question - 1);
   };
   const [submit, setSubmit] = useState(false);
-  const [text, setText] = useState('');
+  const [situation, setSituation] = useState('');
   const [tanke, setTanke] = useState('');
   const [kansla, setKansla] = useState('');
   const [kropp, setKropp] = useState('');
 
+  const formValues = {situation, tanke, kansla, kropp};
+
+  // const clearInputs = () => {
+  //   setSituation({situation: ''});
+  //   setTanke({tanke: ''});
+  //   setKansla({kansla: ''});
+  //   setKropp({kropp: ''});
+  // };
+
   const handleSubmit = () => {
-    setSubmit(true);
+    console.log('handling sorkk answers', formValues);
+    fetch('http://192.168.0.12:8080/sorkk', {
+      method: 'POST',
+      body: JSON.stringify(formValues),
+      headers: {'Content-Type': 'application/json'},
+    })
+      .then(response => {
+        if (response.status !== 201) {
+          return console.log('nope');
+        }
+
+        response.json().then(data => {
+          if (data.notFound !== true) {
+            setSubmit(true);
+            console.log('login ok');
+          } else {
+            console.log('login fail props wrong user or pass');
+          }
+        });
+      })
+      .catch(err => console.log('error:', err));
   };
 
   return (
     <MainContainer>
+      <Header />
       <HomexButton onPress={() => history.push('/')}>
         <ButtonX>✖️</ButtonX>
       </HomexButton>
@@ -48,6 +79,12 @@ export default ({history}) => {
                     Lorem ipsum har varit standard ända sedan 1500-talet, när en
                     okänd boksättare tog att antal bokstäver
                   </P>
+                  <StartButtonWrapper>
+                    <StartButton onPress={() => handleNext(question + 1)}>
+                      <ButtonText2>starta</ButtonText2>
+                    </StartButton>
+                    <P2>Ungefärlig tidsåtgång: 30 min</P2>
+                  </StartButtonWrapper>
                 </FormSection>
               )}
               {question === 1 && (
@@ -69,11 +106,18 @@ export default ({history}) => {
                     type="text"
                     required
                     numberOfLines={5}
-                    value={text}
+                    value={situation}
                     placeholder="text"
                     multiline={true}
-                    onChangeText={text => setText(text)}
+                    onChangeText={situation => setSituation(situation)}
                   />
+                  <ProbarWrap>
+                    <ProBarC />
+                    <ProBar />
+                    <ProBar />
+                    <ProBar />
+                    <ProBar />
+                  </ProbarWrap>
                 </FormSection>
               )}
               {question === 2 && (
@@ -124,6 +168,13 @@ export default ({history}) => {
                     placeholder="kropp"
                     onChangeText={kropp => setKropp(kropp)}
                   />
+                  <ProbarWrap>
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBar />
+                    <ProBar />
+                    <ProBar />
+                  </ProbarWrap>
                 </FormSection>
               )}
               {question === 3 && (
@@ -186,6 +237,13 @@ export default ({history}) => {
                       Aldus PageMaker. Aldus PageMaker.
                     </P>
                   </ScrollContainer>
+                  <ProbarWrap>
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBar />
+                    <ProBar />
+                  </ProbarWrap>
                 </FormSection>
               )}
               {question === 4 && (
@@ -202,6 +260,13 @@ export default ({history}) => {
                     med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
                     och senare med mjukvaror som Aldus PageMaker.
                   </P>
+                  <ProbarWrap>
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBar />
+                  </ProbarWrap>
                 </FormSection>
               )}
               {question === 5 && (
@@ -218,47 +283,48 @@ export default ({history}) => {
                     med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
                     och senare med mjukvaror som Aldus PageMaker.
                   </P>
+                  <ProbarWrap>
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBarC />
+                    <ProBarC />
+                  </ProbarWrap>
                 </FormSection>
               )}
+              <ButtonWrapper>
+                {question !== 0 && (
+                  <Button2 onPress={() => handleBack(question - 1)}>
+                    <ButtonText2>Tillbaka</ButtonText2>
+                  </Button2>
+                )}
+                {question === 1 ||
+                question === 2 ||
+                question === 3 ||
+                question === 4 ? (
+                  <Button2 onPress={() => handleNext(question + 1)}>
+                    <ButtonText2>Nästa</ButtonText2>
+                  </Button2>
+                ) : null}
+                {question === 5 && (
+                  <Button2 onPress={() => handleSubmit()}>
+                    <ButtonText2>submit</ButtonText2>
+                  </Button2>
+                )}
+              </ButtonWrapper>
             </FormView>
           )}
-          {submit && (
-            <FormSection>
-              <Welcome>
-                {text} {tanke} {kansla} {kropp}
-              </Welcome>
-            </FormSection>
-          )}
         </FormContainer>
-        {question === 0 && (
-          <StartButtonWrapper>
-            <StartButton onPress={() => handleNext(question + 1)}>
-              <ButtonText2>Starta uppgiften</ButtonText2>
-            </StartButton>
-            <P2>Ungefärlig tidsåtgång: 30 min</P2>
-          </StartButtonWrapper>
+        {submit && (
+          <MainContainer2>
+            <FormSection>
+              <P>Situation: {situation}</P>
+              <P>Tanke: {tanke}</P>
+              <P>Känsla: {kansla}</P>
+              <P>Kropp: {kropp}</P>
+            </FormSection>
+          </MainContainer2>
         )}
-        <ButtonWrapper>
-          {question !== 0 && (
-            <Button2
-              onPress={() => {
-                handleBack(question - 1);
-              }}>
-              <ButtonText2> Tillbaka</ButtonText2>
-            </Button2>
-          )}
-
-          {question !== 0 && (
-            <Button2 onPress={() => handleNext(question + 1)}>
-              <ButtonText2>Nästa</ButtonText2>
-            </Button2>
-          )}
-          {question === 5 && (
-            <Button2 onPress={() => handleSubmit()}>
-              <ButtonText2>submit</ButtonText2>
-            </Button2>
-          )}
-        </ButtonWrapper>
       </MainContainer2>
     </MainContainer>
   );
@@ -279,6 +345,25 @@ const MainContainer2 = styled.View`
   margin: 15px;
 `;
 
+const ProbarWrap = styled.View`
+  flex-direction: row;
+  align-items: stretch;
+`;
+
+const ProBar = styled.View`
+  height: 15px;
+  width: 20%;
+
+  border: 1px;
+  background: white;
+`;
+const ProBarC = styled.View`
+  height: 15px;
+  width: 20%;
+  border: 1px;
+  background: green;
+`;
+
 const FormContainer = styled.View``;
 
 const ScrollContainer = styled.ScrollView`
@@ -287,7 +372,7 @@ const ScrollContainer = styled.ScrollView`
 
 const FormView = styled.View`
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: stretch;
 `;
@@ -298,6 +383,7 @@ const InputHeadWrap = styled.View`
 `;
 const FormSection = styled.View`
   width: 100%;
+  flex-direction: column;
 `;
 
 const ImageView = styled.View`
@@ -306,7 +392,6 @@ const ImageView = styled.View`
 `;
 const HeadImage = styled.Image`
   width: 100%;
-  margin: 0px;
 `;
 
 const P2 = styled.Text`
