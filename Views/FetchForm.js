@@ -17,7 +17,7 @@ export default ({ history }) => {
   const [tanke, setTanke] = useState('');
   const [kansla, setKansla] = useState('');
   const [kropp, setKropp] = useState('');
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState(true);
   const [assignmentId, setAssignmentId] = useState('');
 
   const formValues = {
@@ -44,13 +44,13 @@ export default ({ history }) => {
   const handleSubmit = () => {
     setComplete(true);
     console.log('handling sorkk answers', formValues);
-    fetch('http://192.168.0.12:8080/assignment', {
+    fetch('http://192.168.0.12:8080/5e71558c0dc6052d64e81816/update ', {
       method: 'POST',
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' },
     })
       .then(response => {
-        if (response.status !== 201) {
+        if (response.status !== 200) {
           return console.log('nope');
         }
 

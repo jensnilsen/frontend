@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
 
-export default ({history}) => {
+export default ({ history }) => {
   return (
     <Container>
       <ButtonWrapper>
         <PatientButton onPress={() => history.push('/test')}>
           <ButtonText>Patients</ButtonText>
         </PatientButton>
-        <TherapistButton onPress={() => history.push('/therapistLogin')}>
+        <TherapistButton onPress={() => history.push('/form')}>
           <ButtonText>Therapist Login</ButtonText>
         </TherapistButton>
         <FormButton onPress={() => history.push('/form')}>
