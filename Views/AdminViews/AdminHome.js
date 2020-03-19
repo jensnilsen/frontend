@@ -1,21 +1,18 @@
 import styled from 'styled-components';
 import React from 'react';
 
-export default ({history}) => {
+export default ({ history }) => {
   return (
     <Container>
       <ButtonWrapper>
-        <PatientButton onPress={() => history.push('/test')}>
-          <ButtonText>Test</ButtonText>
+        <PatientButton onPress={() => history.push('/assignmentlist')}>
+          <ButtonText>Patients assignment list</ButtonText>
         </PatientButton>
-        <TherapistButton onPress={() => history.push('/therapistLogin')}>
-          <ButtonText>Therapist Login</ButtonText>
+        <TherapistButton onPress={() => history.push('/sendassignment')}>
+          <ButtonText>nada</ButtonText>
         </TherapistButton>
-        <FormButton onPress={() => history.push('/form')}>
-          <ButtonText>Sorkk</ButtonText>
-        </FormButton>
-        <FormButton onPress={() => history.push('/gravling')}>
-          <ButtonText>Gravling</ButtonText>
+        <FormButton onPress={() => history.push('/sendassignment')}>
+          <ButtonText>sent Assignments</ButtonText>
         </FormButton>
       </ButtonWrapper>
     </Container>

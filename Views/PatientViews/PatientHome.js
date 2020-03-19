@@ -5,14 +5,14 @@ export default ({ history }) => {
   return (
     <Container>
       <ButtonWrapper>
-        <PatientButton onPress={() => history.push('/test')}>
-          <ButtonText>Patients</ButtonText>
+        <PatientButton onPress={() => history.push('/assignmentlist')}>
+          <ButtonText>Uppgifter-lista</ButtonText>
         </PatientButton>
-        <TherapistButton onPress={() => history.push('/form')}>
-          <ButtonText>Therapist Login</ButtonText>
+        <TherapistButton onPress={() => history.push('/assignmentlist')}>
+          <ButtonText>modeller(kommer)</ButtonText>
         </TherapistButton>
-        <FormButton onPress={() => history.push('/form')}>
-          <ButtonText>form</ButtonText>
+        <FormButton onPress={() => history.push('/sendassignment')}>
+          <ButtonText>text(kommer)</ButtonText>
         </FormButton>
       </ButtonWrapper>
     </Container>

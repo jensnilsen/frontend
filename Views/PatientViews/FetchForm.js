@@ -1,9 +1,10 @@
 /* eslint-disable no-shadow */
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import Header from '../Components/Header';
+import { useParams } from "react-router-dom";
 
 export default ({ history }) => {
+  const { _id } = useParams();
   const [question, setQuestion] = useState(0);
 
   const handleNext = () => {
@@ -17,11 +18,9 @@ export default ({ history }) => {
   const [tanke, setTanke] = useState('');
   const [kansla, setKansla] = useState('');
   const [kropp, setKropp] = useState('');
-  const [complete, setComplete] = useState(false);
-  const [assignmentId, setAssignmentId] = useState('');
+  const [complete, setComplete] = useState(true);
 
   const formValues = {
-    assignmentId,
     situation,
     tanke,
     kansla,
@@ -36,39 +35,36 @@ export default ({ history }) => {
   //   setKropp({kropp: ''});
   // };
 
-  const handleAssignmentId = () => {
-    setAssignmentId('sorkk');
-    handleNext(question + 1);
-  };
+
+  const id = _id
 
   const handleSubmit = () => {
+    console.log(id)
     setComplete(true);
     console.log('handling sorkk answers', formValues);
-    fetch('http://192.168.0.12:8080/assignment', {
-      method: 'POST',
+    fetch(`http://192.168.0.103:8080/${id}/update`, {
+      method: 'PUT',
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' },
     })
       .then(response => {
-        if (response.status !== 201) {
+        if (response.status !== 200) {
           return console.log('nope');
         }
-
         response.json().then(data => {
           if (data.notFound !== true) {
             setSubmit(true);
-            console.log('login ok');
+            console.log('Form fetched and updated');
           } else {
-            console.log('login fail props wrong user or pass');
+            console.log('Failed to update form');
           }
-        });
+        }, [_id]);
       })
       .catch(err => console.log('error:', err));
   };
-
+  //FIX ASSIGNMENTiD
   return (
     <MainContainer>
-      <Header />
       <HomexButton onPress={() => history.push('/')}>
         <ButtonX>✖️</ButtonX>
       </HomexButton>
@@ -95,7 +91,7 @@ export default ({ history }) => {
                     okänd boksättare tog att antal bokstäver
                   </P>
                   <StartButtonWrapper>
-                    <StartButton onPress={() => handleAssignmentId()}>
+                    <StartButton onPress={() => handleNext(question + 1)}>
                       <ButtonText2>starta</ButtonText2>
                     </StartButton>
                     <P2>Ungefärlig tidsåtgång: 30 min</P2>
@@ -205,51 +201,7 @@ export default ({ history }) => {
                       århundraden, utan även övergången till elektronisk
                       typografi utan större förändringar. Det blev allmänt känt
                       på 1960-talet i samband med lanseringen av Letraset-ark
-                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
-                      Aldus PageMaker. med lanseringen av Letraset-ark med
-                      avsnitt av Lorem Ipsum, och senare med mjukvaror som Aldus
-                      PageMaker. Lorem Ipsum är en utfyllnadstext från tryck-
-                      och förlagsindustrin. Lorem ipsum har varit standard ända
-                      sedan 1500-talet, när en okänd boksättare tog att antal
-                      bokstäver och blandade dem för att göra ett provexemplar
-                      av en bok. av en bok. Lorem ipsum har inte bara överlevt
-                      fem århundraden, utan även övergången till elektronisk
-                      typografi utan större förändringar. Det blev allmänt känt
-                      på 1960-talet i samband med lanseringen av Letraset-ark
-                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
-                      Lorem Ipsum är en utfyllnadstext från tryck- och tryck-
-                      och förlagsindustrin. Lorem ipsum har varit standard ända
-                      sedan 1500-talet, när en okänd boksättare bokstäver och
-                      blandade dem för att göra ett provexemplar provexemplar av
-                      en bok. Lorem ipsum har inte bara överlevt fem
-                      århundraden, utan även övergången till elektronisk
-                      typografi utan större förändringar. Det blev allmänt känt
-                      på 1960-talet i samband med lanseringen av Letraset-ark
-                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
-                      Det blev allmänt känt på 1960-talet i samband med
-                      lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
-                      och senare med mjukvaror som Aldus PageMaker. med
-                      lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
-                      och senare med mjukvaror som Aldus PageMaker. Lorem Ipsum
-                      är en utfyllnadstext från tryck- och förlagsindustrin.
-                      Lorem ipsum har varit standard ända sedan 1500-talet, när
-                      en okänd boksättare tog att antal bokstäver och blandade
-                      dem för att göra ett provexemplar av en bok. av en bok.
-                      Lorem ipsum har inte bara överlevt fem århundraden, utan
-                      även övergången till elektronisk typografi utan större
-                      förändringar. Det blev allmänt känt på 1960-talet i
-                      samband med lanseringen av Letraset-ark med avsnitt av
-                      Lorem Ipsum, och senare med mjukvaror som Lorem Ipsum är
-                      en utfyllnadstext från tryck- och tryck- och
-                      förlagsindustrin. Lorem ipsum har varit standard ända
-                      sedan 1500-talet, när en okänd boksättare bokstäver och
-                      blandade dem för att göra ett provexemplar provexemplar av
-                      en bok. Lorem ipsum har inte bara överlevt fem
-                      århundraden, utan även övergången till elektronisk
-                      typografi utan större förändringar. Det blev allmänt känt
-                      på 1960-talet i samband med lanseringen av Letraset-ark
-                      med avsnitt av Lorem Ipsum, och senare med mjukvaror som
-                      Aldus PageMaker. Aldus PageMaker.
+
                     </P>
                   </ScrollContainer>
                   <ProbarWrap>

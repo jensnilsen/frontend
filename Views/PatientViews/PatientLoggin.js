@@ -1,64 +1,63 @@
 /* eslint-disable no-shadow */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export default ({history}) => {
+export default ({ history }) => {
   const [loginFailed, setLoginFailed] = useState(false);
-  const [adminname, setAdminname] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const formValues = {adminname, password};
+  const formValues = { username, password };
 
   const clearInputs = () => {
-    setAdminname({adminname: ''});
-    setPassword({password: ''});
+    setUsername({ username: '' });
+    setPassword({ password: '' });
   };
 
   const handleSubmit = () => {
     console.log('handling submit', formValues);
-    fetch('http://192.168.100.159:8080/adminlogin', {
+    fetch('http://192.168.0.103:8080/userlogin', {
       method: 'POST',
       body: JSON.stringify(formValues),
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
     })
       .then(response => {
         if (response.status !== 200) {
           setLoginFailed(true);
           return console.log('nope');
         }
-
-        response.json().then(data => {
-          if (data.notFound !== true) {
-            clearInputs();
-            setLoginFailed(false);
-            history.push('/test');
-            console.log('login ok');
-          } else {
-            setLoginFailed(true);
-            clearInputs();
-            console.log('login fail props wrong user or pass');
-          }
-        });
+        response.json()
+          .then(data => {
+            if (data.notFound !== true) {
+              clearInputs();
+              setLoginFailed(false);
+              history.push('/patienthome');
+            } else {
+              setLoginFailed(true);
+              clearInputs();
+              console.log('login fail props wrong user or pass');
+            }
+          });
       })
-      .catch(err => console.log('errodasdr:', err));
+      .catch(err => console.log('error:', err));
   };
 
   return (
     <Wrapper>
       <Form>
         {loginFailed ? (
-          <LoginFailed>Incorrect adminname or password</LoginFailed>
+          <LoginFailed>Incorrect username or password</LoginFailed>
         ) : (
-          <LoginText>Please Login</LoginText>
-        )}
+            <LoginText>Please Login</LoginText>
+          )}
         <AllInputWrapper>
           <Label>
-            <InputHeader>admin-name:</InputHeader>
+            <InputHeader>Username:</InputHeader>
             <Input
-              onChangeText={adminname => setAdminname(adminname)}
-              value={adminname}
+              value={username}
+              onChangeText={username => setUsername(username)}
               type="text"
-              placeholder="admin-name"
+              placeholder="Username"
               placeholderTextColor="#fcd6bd"
               required
             />
@@ -81,8 +80,20 @@ export default ({history}) => {
         <GoToButton type="submit" onPress={() => handleSubmit()}>
           <ButtonText>Login</ButtonText>
         </GoToButton>
-        <ChangeLoginButton type="button" onPress={() => history.push('/')}>
-          <ChangeButtonText>Patient</ChangeButtonText>
+        <ChangeLoginButton
+          type="button"
+          onPress={() => history.push('/therapistlogin')}>
+          <ChangeButtonText>Admin login</ChangeButtonText>
+        </ChangeLoginButton>
+        <ChangeLoginButton
+          type="button"
+          onPress={() => history.push('/adminhome')}>
+          <ChangeButtonText>Adminhome</ChangeButtonText>
+        </ChangeLoginButton>
+        <ChangeLoginButton
+          type="button"
+          onPress={() => history.push('/patienthome')}>
+          <ChangeButtonText>Patienthome</ChangeButtonText>
         </ChangeLoginButton>
       </Form>
     </Wrapper>
@@ -130,7 +141,7 @@ const ButtonText = styled.Text`
 
 const ChangeButtonText = styled.Text`
   font-size: 16px;
-  color: black;
+  color: #e9a97f;
 `;
 
 const Wrapper = styled.View`
@@ -154,5 +165,6 @@ const GoToButton = styled.TouchableOpacity`
 
 const ChangeLoginButton = styled.TouchableOpacity`
   border-bottom-width: 1px;
+  border-bottom-color: #e9a97f;
   margin-top: 20px;
 `;

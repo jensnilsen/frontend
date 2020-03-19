@@ -1,9 +1,8 @@
 /* eslint-disable no-shadow */
 import styled from 'styled-components';
-import React, {useState} from 'react';
-import Header from '../Components/Header';
+import React, { useState } from 'react';
 
-export default ({history}) => {
+export default ({ history }) => {
   const [question, setQuestion] = useState(0);
 
   const handleNext = () => {
@@ -19,7 +18,7 @@ export default ({history}) => {
   const [kropp, setKropp] = useState('');
   const [assignmentId, setAssignmentId] = useState('');
 
-  const formValues = {assignmentId, situation, tanke, lukt, kropp};
+  const formValues = { assignmentId, situation, tanke, lukt, kropp };
 
   // const clearInputs = () => {
   //   setSituation({situation: ''});
@@ -29,16 +28,16 @@ export default ({history}) => {
   // };
 
   const handleAssignmentId = () => {
-    setAssignmentId('gravling');
+    setAssignmentId('Grävling');
     handleNext(question + 1);
   };
 
   const handleSubmit = () => {
     console.log('handling sorkk answers', formValues);
-    fetch('http://192.168.0.12:8080/assignment', {
+    fetch('http://192.168.0.103:8080/assignment', {
       method: 'POST',
       body: JSON.stringify(formValues),
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
     })
       .then(response => {
         if (response.status !== 201) {
@@ -305,13 +304,13 @@ export default ({history}) => {
                   </Button2>
                 )}
                 {question === 1 ||
-                question === 2 ||
-                question === 3 ||
-                question === 4 ? (
-                  <Button2 onPress={() => handleNext(question + 1)}>
-                    <ButtonText2>Nästa</ButtonText2>
-                  </Button2>
-                ) : null}
+                  question === 2 ||
+                  question === 3 ||
+                  question === 4 ? (
+                    <Button2 onPress={() => handleNext(question + 1)}>
+                      <ButtonText2>Nästa</ButtonText2>
+                    </Button2>
+                  ) : null}
                 {question === 5 && (
                   <Button2 onPress={() => handleSubmit()}>
                     <ButtonText2>submit</ButtonText2>

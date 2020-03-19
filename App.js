@@ -1,15 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
 import React from 'react';
 import styled from 'styled-components';
-import {NativeRouter, Switch} from 'react-router-native';
-import Header from './Components/Header';
+import { NativeRouter, Switch } from 'react-router-native';
 
 import Routes from './Routes/Routes';
 
@@ -23,6 +15,7 @@ export default class App extends React.Component {
           </Switch>
         </Container>
       </NativeRouter>
+
     );
   }
 }

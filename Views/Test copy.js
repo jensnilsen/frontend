@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 export default () => {
   const [data, setData] = useState([]);
-  const url = 'http://192.168.0.12:8080/assignment';
+  const url = 'http://192.168.0.103:8080/assignment';
 
   const fetchAssignmentById = () => {
     fetch(url)

@@ -1,29 +1,27 @@
 import React from 'react';
 import { Route } from 'react-router-native';
-import Home from '../Views/PatientHome';
-import TherapistLogin from '../Views/TherapistLogin';
-import PatientLoggin from '../Views/PatientLoggin';
-import Form from '../Views/Form';
-import Test from '../Views/Test';
-import AdminHome from '../Views/AdminHome';
-import PatientHome from '../Views/PatientHome';
-import Header from '../Components/Header';
+import TherapistLogin from '../Views/AdminViews/TherapistLogin';
+import PatientLoggin from '../Views/PatientViews/PatientLoggin';
+import SendAssignment from '../Views/AdminViews/SendAssignment';
+import AssignmentList from '../Views/PatientViews/AssignmentList';
+import AdminHome from '../Views/AdminViews/AdminHome';
+import PatientHome from '../Views/PatientViews/PatientHome';
 import Gravling from '../Views/Gravling';
-import FetchForm from '../Views/FetchForm'
+import FetchForm from '../Views/PatientViews/FetchForm'
 
 export default () => {
   return (
     <>
       <Route exact path="/" component={PatientLoggin} />
       <Route exact path="/therapistLogin" component={TherapistLogin} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/postform" component={Form} />
+      <Route exact path="/sendassignment" component={SendAssignment} />
       <Route exact path="/gravling" component={Gravling} />
-      <Route exact path="/test" component={Test} />
+      <Route exact path="/assignmentlist" component={AssignmentList} />
       <Route exact path="/adminhome" component={AdminHome} />
       <Route exact path="/patienthome" component={PatientHome} />
-      <Route exact path="/header" component={Header} />
-      <Route exact path="/fetchform" component={FetchForm} />
+      <Route exact path="/fetchform/:_id" component={FetchForm} />
+
     </>
   );
 };
+
