@@ -1,26 +1,37 @@
 import styled from 'styled-components';
 import React from 'react';
+import { useParams } from "react-router-dom";
+import MenuHeader from '../Components/MenuHeader'
 
 export default ({ history }) => {
+  const { accessToken } = useParams()
+  console.log('patient is home', accessToken)
+
   return (
-    <Container>
-      <ButtonWrapper>
-        <PatientButton onPress={() => history.push('/assignmentlist')}>
-          <ButtonText>Uppgifter-lista</ButtonText>
-        </PatientButton>
-        <TherapistButton onPress={() => history.push('/assignmentlist')}>
-          <ButtonText>modeller(kommer)</ButtonText>
-        </TherapistButton>
-        <FormButton onPress={() => history.push('/sendassignment')}>
-          <ButtonText>text(kommer)</ButtonText>
-        </FormButton>
-      </ButtonWrapper>
-    </Container>
+    <>
+      <MenuHeader />
+      <Container>
+        <ButtonWrapper>
+          <AssButton onPress={() => history.push(`/assignmentlist/${accessToken}`)}>
+            <Icon>📚</Icon>
+            <ButtonText>Uppgifter</ButtonText>
+          </AssButton>
+          <ModellButton onPress={() => history.push('/assignmentlist/accessToken')}>
+            <Icon>📈</Icon>
+            <ButtonText>Modeller</ButtonText>
+          </ModellButton>
+          <TextButton onPress={() => history.push('/assignmentlist')}>
+            <Icon>📜</Icon>
+            <ButtonText>Texter</ButtonText>
+          </TextButton>
+        </ButtonWrapper>
+      </Container>
+    </>
   );
 };
 
 const Container = styled.View`
-  flex: 1;
+  flex: 11;
   flex-direction: row;
   justify-content: space-between;
   background-color: #fbeee6;
@@ -33,30 +44,36 @@ const ButtonWrapper = styled.View`
 
 const ButtonText = styled.Text`
   color: #555555;
+  font-size: 28px;
+  font-family: BalooChettan2-Regular;
+`;
+const Icon = styled.Text`
+  font-size: 60px;
+  opacity: 0.7;
 `;
 
-const PatientButton = styled.TouchableOpacity`
+const AssButton = styled.TouchableOpacity`
   flex: 1;
   position: relative;
-  background-color: #fbeee6;
+  background-color: #fff;
   color: white;
   justify-content: center;
   align-items: center;
 `;
 
-const TherapistButton = styled.TouchableOpacity`
+const ModellButton = styled.TouchableOpacity`
+  flex: 1;
+  position: relative;
+  background-color: #faf2ed
+  color: white;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TextButton = styled.TouchableOpacity`
   flex: 1;
   position: relative;
   background-color: #f8e5d8;
-  color: white;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FormButton = styled.TouchableOpacity`
-  flex: 1;
-  position: relative;
-  background-color: #f6ddcc;
   color: white;
   justify-content: center;
   align-items: center;

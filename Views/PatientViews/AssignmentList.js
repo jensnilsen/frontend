@@ -1,83 +1,125 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment'
-import FetchForm from './FetchForm';
+import { useParams } from "react-router-dom";
+import Loading from '../Components/Loading';
 
 export default ({ history }) => {
-
+  const { accessToken } = useParams()
+  console.log('assignmentlist', accessToken)
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const url = `http://192.168.0.103:8080/assignments/`;
 
-
-
   const fetchAssignmentById = () => {
+    setLoading(true)
     fetch(url)
       .then(res => res.json())
       .then(json => {
         console.log('Get fetch assign', json);
         setData(json);
+        setLoading(false)
       });
   }
   useEffect(() => {
     fetchAssignmentById();
   }, []);
 
-
   return (
-    <C2>
-      <C>
-        <Scroll>
-          <Button1 onPress={() => history.push('/patienthome')}>
-            <ButtonText2>Tillbaka</ButtonText2>
-          </Button1>
-          <WrapDone>
-            <DoneHeader>Ej Färdiga Uppgifter::</DoneHeader>
-            {data.map(d => {
-              return (
-                <C3 key={d._id}>
-                  {!d.complete && (
-                    <ButtonWrapper>
-                      <Button2 onPress={() => history.push(`/fetchform/${d._id}`)}>
-                        <ButtonText1>{d.assignmentId}</ButtonText1>
-                        <ButtonText3>Added:{moment(d.createdAt).fromNow()}</ButtonText3>
-                        <ButtonText3>Still to do</ButtonText3>
-                        <ButtonText3>{d._id}</ButtonText3>
-                      </Button2>
-                    </ButtonWrapper>
-                  )}
+    <MainContainer>
+      <Header>
+        <HeaderButtons onPress={() => history.push(`/patienthome/${accessToken}`)}>
+          <BackButtonText>Tillbaka</BackButtonText>
+        </HeaderButtons>
+        <HeaderButtons onPress={() => history.push(`/`)}>
+          <BackButtonText>Logga Ut</BackButtonText>
+        </HeaderButtons>
+      </Header>
+      <H1>UPPGIFTER</H1>
+      {
+        loading && (
+          <Container>
+            <Loading />
+          </Container>
+        )
+      }
+      {!loading && (
+        <Container>
 
-                </C3>
-              )
-            }
-            )}
-          </WrapDone>
-          <WrapDone>
-            <DoneHeader>Färdiga uppgifter:</DoneHeader>
-            {data.map(d => {
-              return (
-                <C3 key={d._id}>
-                  {d.complete && (
-                    <Button3 onPress={() => history.push(`/fetchform${d._id}`)}>
-                      <ButtonText1>{d.assignmentId}</ButtonText1>
-                      <ButtonText3>Added:{moment(d.createdAt).fromNow()}</ButtonText3>
-                      <ButtonText3>Done</ButtonText3>
-                      <ButtonText3>{d._id}</ButtonText3>
-                    </Button3>
-                  )}
-                </C3>
-              )
-            }
-            )}
-          </WrapDone>
-        </Scroll>
-      </C>
-    </C2 >
+          <Scroll>
+            <WrapDone>
+              <DoneHeader>Ej Färdiga Uppgifter:</DoneHeader>
+              {data.map(d => {
+                return (
+                  <C3 key={d._id}>
+                    {!d.complete && (
+                      <ButtonWrapper>
+                        <NotDone onPress={() => history.push(`/fetchform/${d._id}/${accessToken}`)}>
+                          <ButtonNameFlex>
+                            <AssName>{d.assignmentId}</AssName>
+                          </ButtonNameFlex>
+                          <ButtonFlex>
+                            <AssAdded>Added:{moment(d.createdAt).fromNow()}</AssAdded>
+                            <AssAdded>⏳</AssAdded>
+                          </ButtonFlex>
+                        </NotDone>
+                      </ButtonWrapper>
+                    )}
+
+                  </C3>
+                )
+              }
+              )}
+            </WrapDone>
+            <WrapDone>
+              <DoneHeader>Färdiga uppgifter:</DoneHeader>
+              {data.map(d => {
+                return (
+                  <C3 key={d._id}>
+                    {d.complete && (
+                      <Done onPress={() => history.push(`/fetchform/${d._id}/${accessToken}`)}>
+                        <ButtonNameFlex>
+                          <AssName>{d.assignmentId}</AssName>
+                        </ButtonNameFlex>
+                        <ButtonFlex>
+                          <AssAdded>Added:{moment(d.createdAt).fromNow()}</AssAdded>
+                          <AssAdded>✔️</AssAdded>
+                        </ButtonFlex>
+                      </Done>
+                    )}
+                  </C3>
+                )
+              }
+              )}
+            </WrapDone>
+          </Scroll>
+        </Container>
+      )}
+
+    </MainContainer >
   );
 };
 
-const C = styled.View`
+
+const MainContainer = styled.View`
 flex: 1;
   flex-direction: column;
+  align-items: stretch;
+  background-color: #fff;
+`;
+const Header = styled.View`
+flex:1 
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+background: #E1854C;
+`
+const Container = styled.View`
+  flex: 11;
+  flex-direction: row;
+  align-items: stretch;
+  background-color: #fff;
+  width: 100%;
 `;
 
 const Scroll = styled.ScrollView`
@@ -86,11 +128,17 @@ const Scroll = styled.ScrollView`
 const WrapDone = styled.View`
 margin-top: 15px;
 `;
-const C2 = styled.View`
-flex: 1;
-  flex-direction: row;
-  align-items: stretch;
-`;
+
+const ButtonFlex = styled.View`
+flex: 2;
+flex-direction: row;
+justify-content: space-between;
+`
+const ButtonNameFlex = styled.View`
+flex: 3;
+`
+
+
 const C3 = styled.View`
   flex-direction: column;
 `;
@@ -103,37 +151,60 @@ const T = styled.Text`
 `;
 const DoneHeader = styled.Text`
   font-size: 16px;
-  color: #8b776a;
+  margin-top: 10px;
+  color: #555;
   border-bottom-width: 1px;
   border-color: #8b776a;
-`;
-const Button2 = styled.TouchableOpacity`
-  margin-top: 2px;
-  padding: 15px;
-  background-color: #ffcfb1;
+  font-family: BalooChettan2-SemiBold;
 `;
 
-const Button3 = styled.TouchableOpacity`
-  margin-top: 2px;
-  padding: 15px;
-  background-color: #fbeee6;
+const HeaderButtons = styled.TouchableOpacity`
+margin: 15px;
 `;
 
-const Button1 = styled.TouchableOpacity`
-  padding: 15px;
-`;
-const ButtonText1 = styled.Text`
-  font-size: 30px;
-  color: black;
-  font-weight: normal;
-`;
-const ButtonText2 = styled.Text`
+const BackButtonText = styled.Text`
   font-size: 20px;
-  color: black;
+  color: #fbeee6;
   font-weight: normal;
+  font-family: BalooChettan2-SemiBold;
 `;
-const ButtonText3 = styled.Text`
-  font-size: 13px;
+
+const H1 = styled.Text`
+align-self: center;
+  font-size: 25px;
   color: black;
+  color: #555;
   font-weight: normal;
+  font-family: BalooChettan2-SemiBold;
+`;
+
+const NotDone = styled.TouchableOpacity`
+align-items: center;
+justify-content: space-between;
+flex-direction: row;
+  margin-top: 2px;
+  padding: 15px;
+  background-color: #f8e5d8;
+`;
+const Done = styled.TouchableOpacity`
+align-items: center;
+justify-content: space-between;
+flex-direction: row;
+  margin-top: 2px;
+  padding: 15px;
+  background-color: #faf2ed
+`;
+
+const AssAdded = styled.Text`
+  font-size: 13px;
+  color: #fff;
+  color: #555;
+  font-weight: normal;
+  font-family: BalooChettan2-Regular;
+`;
+const AssName = styled.Text`
+  font-size: 23px;
+  color: #555;
+  font-weight: normal;
+  font-family: BalooChettan2-Regular;
 `;

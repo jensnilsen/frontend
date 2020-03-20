@@ -16,10 +16,10 @@ export default () => {
       <Route exact path="/therapistLogin" component={TherapistLogin} />
       <Route exact path="/sendassignment" component={SendAssignment} />
       <Route exact path="/gravling" component={Gravling} />
-      <Route exact path="/assignmentlist" component={AssignmentList} />
+      <Route exact path="/assignmentlist/:accessToken" component={AssignmentList} />
       <Route exact path="/adminhome" component={AdminHome} />
-      <Route exact path="/patienthome" component={PatientHome} />
-      <Route exact path="/fetchform/:_id" component={FetchForm} />
+      <Route exact path="/patienthome/:accessToken" component={PatientHome} />
+      <Route exact path="/fetchform/:_id/:accessToken" component={FetchForm} />
 
     </>
   );

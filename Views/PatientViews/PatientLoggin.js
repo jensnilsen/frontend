@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Loading from '../Components/Loading'
 
 export default ({ history }) => {
   const [loginFailed, setLoginFailed] = useState(false);
@@ -31,11 +32,11 @@ export default ({ history }) => {
             if (data.notFound !== true) {
               clearInputs();
               setLoginFailed(false);
-              history.push('/patienthome');
+              history.push(`/patienthome/${data.accessToken}`);
             } else {
               setLoginFailed(true);
               clearInputs();
-              console.log('login fail props wrong user or pass');
+              console.log('login fail probs wrong user or pass');
             }
           });
       })
@@ -44,127 +45,140 @@ export default ({ history }) => {
 
   return (
     <Wrapper>
-      <Form>
-        {loginFailed ? (
-          <LoginFailed>Incorrect username or password</LoginFailed>
-        ) : (
-            <LoginText>Please Login</LoginText>
-          )}
-        <AllInputWrapper>
-          <Label>
-            <InputHeader>Username:</InputHeader>
-            <Input
-              value={username}
-              onChangeText={username => setUsername(username)}
-              type="text"
-              placeholder="Username"
-              placeholderTextColor="#fcd6bd"
-              required
-            />
-          </Label>
 
-          <Label>
-            <InputHeader>Password:</InputHeader>
-            <Input
-              onChangeText={password => setPassword(password)}
-              value={password}
-              type="password"
-              placeholder="**********"
-              placeholderTextColor="#fcd6bd"
-              secureTextEntry={true}
-              password={true}
-              required
+      <Form>
+        <AllInputWrapper>
+          <ImageView>
+            <HeadImage
+              source={require('../images/Mendly-grey.png')}
+              resizeMode="contain"
             />
-          </Label>
+          </ImageView>
+
+          {loginFailed ? (
+            <LoginFailed>Incorrect username or password</LoginFailed>
+          ) : (
+              <LoginText>Please Login</LoginText>
+            )}
+
+          <Input
+            value={username}
+            onChangeText={username => setUsername(username)}
+            type="text"
+            placeholder="Username"
+            placeholderTextColor="rgba(225, 133, 76, 0.39);"
+            required
+          />
+          <Input
+            onChangeText={password => setPassword(password)}
+            value={password}
+            type="password"
+            placeholder="Password"
+            placeholderTextColor="rgba(225, 133, 76, 0.39);"
+            secureTextEntry={true}
+            password={true}
+            required
+          />
+
         </AllInputWrapper>
+
         <GoToButton type="submit" onPress={() => handleSubmit()}>
           <ButtonText>Login</ButtonText>
         </GoToButton>
-        <ChangeLoginButton
-          type="button"
-          onPress={() => history.push('/therapistlogin')}>
-          <ChangeButtonText>Admin login</ChangeButtonText>
-        </ChangeLoginButton>
-        <ChangeLoginButton
-          type="button"
-          onPress={() => history.push('/adminhome')}>
-          <ChangeButtonText>Adminhome</ChangeButtonText>
-        </ChangeLoginButton>
-        <ChangeLoginButton
-          type="button"
-          onPress={() => history.push('/patienthome')}>
-          <ChangeButtonText>Patienthome</ChangeButtonText>
-        </ChangeLoginButton>
+        <LocksWrapper>
+          <ChangeLoginButton
+            type="button"
+            onPress={() => history.push('/therapistlogin')}>
+            <ChangeButtonText>🔐</ChangeButtonText>
+          </ChangeLoginButton>
+          <ChangeLoginButton
+            type="button"
+            onPress={() => history.push('/adminhome')}>
+            <ChangeButtonText>🔓</ChangeButtonText>
+          </ChangeLoginButton>
+        </LocksWrapper>
+
       </Form>
-    </Wrapper>
+    </Wrapper >
   );
 };
 
+const Wrapper = styled.View`
+flex: 1;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+`;
+
 const Form = styled.View`
   flex: 1;
-  justify-content: space-evenly;
   align-items: center;
-  margin: 15px;
+  justify-content: space-between;
 `;
-const Label = styled.View``;
+
+const LocksWrapper = styled.View`
+flex-direction: row;
+align-self: flex-end;
+`
 
 const AllInputWrapper = styled.View`
-  flex: 1;
-  width: 100%;
+width: 87%;
 `;
 
-const InputHeader = styled.Text`
-  margin-top: 20px;
-  color: black;
-  font-size: 20px;
-`;
 const Input = styled.TextInput`
   padding: 3px;
+  margin-top: 20px;
   font-size: 40px;
+  color: #555;
   border-bottom-width: 3px;
-  border-bottom-color: #e9a97f;
+  border-bottom-color: #e9a97f33;
+  font-family: BalooChettan2-Regular;
 `;
 const LoginFailed = styled.Text`
   padding-top: 25px;
   font-weight: 700;
   color: red;
+  font-size: 20px;
+  font-family: BalooChettan2-SemiBold;
 `;
 const LoginText = styled.Text`
+font-size: 20px;
   padding-top: 25px;
-  font-weight: 700;
-  color: black;
+  font-weight: 600;
+  color: #555;
+  font-family: BalooChettan2-SemiBold;
 `;
 const ButtonText = styled.Text`
-  font-size: 16px;
+  font-size: 29px;
   color: #f5f3f5;
+  font-family: Comfortaa-VariableFont_wght;
+  font-weight: 600;
+  margin-bottom: 5px;
 `;
 
 const ChangeButtonText = styled.Text`
-  font-size: 16px;
-  color: #e9a97f;
-`;
-
-const Wrapper = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
+opacity: 0.7;
 `;
 
 const GoToButton = styled.TouchableOpacity`
-  background-color: #e9a97f;
+  background-color: #E1854C;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   height: 55px;
   width: 90%;
-  margin: 5px;
-  padding: 20px;
+  margin-top: 190px;
   shadow-color: #000;
   elevation: 5;
 `;
 
 const ChangeLoginButton = styled.TouchableOpacity`
-  border-bottom-width: 1px;
-  border-bottom-color: #e9a97f;
-  margin-top: 20px;
+margin: 19px;
+`;
+
+const ImageView = styled.View`
+align-self: center;
+`;
+const HeadImage = styled.Image`
+width: 300px;
 `;

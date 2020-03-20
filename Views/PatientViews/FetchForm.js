@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { useParams } from "react-router-dom";
 
 export default ({ history }) => {
+  const { accessToken } = useParams()
+  console.log('fetch view', accessToken)
   const { _id } = useParams();
   const [question, setQuestion] = useState(0);
+  const id = _id
 
   const handleNext = () => {
     setQuestion(question + 1);
@@ -28,19 +31,10 @@ export default ({ history }) => {
     complete,
   };
 
-  // const clearInputs = () => {
-  //   setSituation({situation: ''});
-  //   setTanke({tanke: ''});
-  //   setKansla({kansla: ''});
-  //   setKropp({kropp: ''});
-  // };
-
-
-  const id = _id
-
   const handleSubmit = () => {
     console.log(id)
     setComplete(true);
+    setSubmit(true)
     console.log('handling sorkk answers', formValues);
     fetch(`http://192.168.0.103:8080/${id}/update`, {
       method: 'PUT',
@@ -64,12 +58,17 @@ export default ({ history }) => {
   };
   //FIX ASSIGNMENTiD
   return (
-    <MainContainer>
-      <HomexButton onPress={() => history.push('/')}>
-        <ButtonX>✖️</ButtonX>
-      </HomexButton>
-      <MainContainer2>
-        <FormContainer>
+    <>
+      <MainContainer>
+        <Header>
+          <HeaderButtons onPress={() => history.push(`/assignmentlist/${accessToken}`)}>
+            <BackButtonText>Tillbaka</BackButtonText>
+          </HeaderButtons>
+          <HeaderButtons onPress={() => history.push(`/`)}>
+            <BackButtonText>Logga Ut</BackButtonText>
+          </HeaderButtons>
+        </Header>
+        <MainContainer2>
           {!submit && (
             <FormView>
               {question === 0 && (
@@ -100,28 +99,32 @@ export default ({ history }) => {
               )}
               {question === 1 && (
                 <FormSection>
-                  <H1>SORKK</H1>
-                  <Welcome>Situation</Welcome>
-                  <P>
-                    Lorem Ipsum är en utfyllnadstext från tryck- och
-                    förlagsindustrin. Lorem ipsum har varit standard ända sedan
-                    1500-talet, när en okänd boksättare tog att antal bokstäver.
+                  <SpaceWrapper>
+                    <H1>SORKK</H1>
+                    <Welcome>Situation</Welcome>
+                    <P>
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända sedan
+                      1500-talet, när en okänd boksättare tog att antal bokstäver.
                   </P>
-                  <InputHeadWrap>
-                    <InputHeader>situiation</InputHeader>
-                    <HelpButton>
-                      <P2>help</P2>
-                    </HelpButton>
-                  </InputHeadWrap>
-                  <Input
-                    type="text"
-                    required
-                    numberOfLines={5}
-                    value={situation}
-                    placeholder="text"
-                    multiline={true}
-                    onChangeText={situation => setSituation(situation)}
-                  />
+                    <SpaceWrapper>
+                      <InputHeadWrap>
+                        <InputHeader>situiation</InputHeader>
+                        <HelpButton>
+                          <P2>❓</P2>
+                        </HelpButton>
+                      </InputHeadWrap>
+                      <Input
+                        type="text"
+                        required
+                        numberOfLines={5}
+                        value={situation}
+                        placeholder="text"
+                        multiline={true}
+                        onChangeText={situation => setSituation(situation)}
+                      />
+                    </SpaceWrapper>
+                  </SpaceWrapper>
                   <ProbarWrap>
                     <ProBarC />
                     <ProBar />
@@ -143,7 +146,7 @@ export default ({ history }) => {
                   <InputHeadWrap>
                     <InputHeader>situiation</InputHeader>
                     <HelpButton>
-                      <P2>help</P2>
+                      <P2>❓</P2>
                     </HelpButton>
                   </InputHeadWrap>
                   <Input
@@ -156,7 +159,7 @@ export default ({ history }) => {
                   <InputHeadWrap>
                     <InputHeader>situiation</InputHeader>
                     <HelpButton>
-                      <P2>help</P2>
+                      <P2>❓</P2>
                     </HelpButton>
                   </InputHeadWrap>
                   <Input
@@ -169,7 +172,7 @@ export default ({ history }) => {
                   <InputHeadWrap>
                     <InputHeader>situiation</InputHeader>
                     <HelpButton>
-                      <P2>help</P2>
+                      <P2>❓</P2>
                     </HelpButton>
                   </InputHeadWrap>
                   <Input
@@ -201,7 +204,46 @@ export default ({ history }) => {
                       århundraden, utan även övergången till elektronisk
                       typografi utan större förändringar. Det blev allmänt känt
                       på 1960-talet i samband med lanseringen av Letraset-ark
-
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända
+                      sedan 1500-talet, när en okänd boksättare tog att antal
+                      bokstäver och blandade dem för att göra ett provexemplar
+                      av en bok. Lorem ipsum har inte bara överlevt fem
+                      århundraden, utan även övergången till elektronisk
+                      typografi utan större förändringar. Det blev allmänt känt
+                      på 1960-talet i samband med lanseringen av Letraset-ark
                     </P>
                   </ScrollContainer>
                   <ProbarWrap>
@@ -215,18 +257,20 @@ export default ({ history }) => {
               )}
               {question === 4 && (
                 <FormSection>
-                  <Welcome>soRkk lorem </Welcome>
-                  <P>
-                    Lorem Ipsum är en utfyllnadstext från tryck- och
-                    förlagsindustrin. Lorem ipsum har varit standard ända sedan
-                    1500-talet, när en okänd boksättare tog att antal bokstäver
-                    och blandade dem för att göra ett provexemplar av en bok.
-                    Lorem ipsum har inte bara överlevt fem århundraden, utan
-                    även övergången till elektronisk typografi utan större
-                    förändringar. Det blev allmänt känt på 1960-talet i samband
-                    med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
-                    och senare med mjukvaror som Aldus PageMaker.
+                  <SpaceWrapper>
+                    <Welcome>soRkk lorem </Welcome>
+                    <P>
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända sedan
+                      1500-talet, när en okänd boksättare tog att antal bokstäver
+                      och blandade dem för att göra ett provexemplar av en bok.
+                      Lorem ipsum har inte bara överlevt fem århundraden, utan
+                      även övergången till elektronisk typografi utan större
+                      förändringar. Det blev allmänt känt på 1960-talet i samband
+                      med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
+                      och senare med mjukvaror som Aldus PageMaker.
                   </P>
+                  </SpaceWrapper>
                   <ProbarWrap>
                     <ProBarC />
                     <ProBarC />
@@ -238,18 +282,20 @@ export default ({ history }) => {
               )}
               {question === 5 && (
                 <FormSection>
-                  <Welcome>soRkk lorem </Welcome>
-                  <P>
-                    Lorem Ipsum är en utfyllnadstext från tryck- och
-                    förlagsindustrin. Lorem ipsum har varit standard ända sedan
-                    1500-talet, när en okänd boksättare tog att antal bokstäver
-                    och blandade dem för att göra ett provexemplar av en bok.
-                    Lorem ipsum har inte bara överlevt fem århundraden, utan
-                    även övergången till elektronisk typografi utan större
-                    förändringar. Det blev allmänt känt på 1960-talet i samband
-                    med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
-                    och senare med mjukvaror som Aldus PageMaker.
-                  </P>
+                  <SpaceWrapper>
+                    <Welcome>soRkk lorem </Welcome>
+                    <P>
+                      Lorem Ipsum är en utfyllnadstext från tryck- och
+                      förlagsindustrin. Lorem ipsum har varit standard ända sedan
+                      1500-talet, när en okänd boksättare tog att antal bokstäver
+                      och blandade dem för att göra ett provexemplar av en bok.
+                      Lorem ipsum har inte bara överlevt fem århundraden, utan
+                      även övergången till elektronisk typografi utan större
+                      förändringar. Det blev allmänt känt på 1960-talet i samband
+                      med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum,
+                      och senare med mjukvaror som Aldus PageMaker.
+                    </P>
+                  </SpaceWrapper>
                   <ProbarWrap>
                     <ProBarC />
                     <ProBarC />
@@ -258,6 +304,7 @@ export default ({ history }) => {
                     <ProBarC />
                   </ProbarWrap>
                 </FormSection>
+
               )}
               <ButtonWrapper>
                 {question !== 0 && (
@@ -281,19 +328,19 @@ export default ({ history }) => {
               </ButtonWrapper>
             </FormView>
           )}
-        </FormContainer>
-        {submit && (
-          <MainContainer2>
-            <FormSection>
+          {submit && (
+
+            <SubmitContainer>
               <P>Situation: {situation}</P>
               <P>Tanke: {tanke}</P>
               <P>Känsla: {kansla}</P>
               <P>Kropp: {kropp}</P>
-            </FormSection>
-          </MainContainer2>
-        )}
-      </MainContainer2>
-    </MainContainer>
+            </SubmitContainer>
+
+          )}
+        </MainContainer2>
+      </MainContainer>
+    </>
   );
 };
 
@@ -301,26 +348,58 @@ const MainContainer = styled.View`
   flex: 1;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
   background-color: #fff;
   align-items: stretch;
 `;
 const MainContainer2 = styled.View`
-  flex: 1;
-  justify-content: space-between;
+  flex: 11;
+  flex-direction: column;
   align-items: stretch;
   margin: 15px;
+  border-width: 1px;
+  border-color: red;
 `;
-
-const ProbarWrap = styled.View`
-  flex-direction: row;
+const SubmitContainer = styled.View`
+width: 100%;
+  flex-direction: column;
   align-items: stretch;
+  border-width: 4px;
+  border-color: red;
 `;
 
+const FormSection = styled.View`
+flex: 1
+flex-direction: column;
+  justify-content: space-between;
+  border-width: 2px;
+  border-color: blue;
+`;
+const ProbarWrap = styled.View`
+flex-direction: row;
+  align-items: stretch;
+  border-width: 2px;
+  border-color: green;
+`;
+
+const FormView = styled.View`
+flex: 1
+flex-direction: column;
+align-items: stretch;
+border-width: 2px;
+border-color: yellow;
+`;
+
+const InputHeadWrap = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 10px 0px 10px;
+  border-width: 2px;
+border-color: orange;
+`;
+const SpaceWrapper = styled.View``
 const ProBar = styled.View`
   height: 15px;
   width: 20%;
-
   border: 1px;
   background: white;
 `;
@@ -331,27 +410,12 @@ const ProBarC = styled.View`
   background: green;
 `;
 
-const FormContainer = styled.View``;
-
 const ScrollContainer = styled.ScrollView`
-  height: 85%;
+  height: 82%;
+  margin-bottom: 5px;
 `;
 
-const FormView = styled.View`
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-`;
-const InputHeadWrap = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 10px 10px 0px 10px;
-`;
-const FormSection = styled.View`
-  width: 100%;
-  flex-direction: column;
-`;
+
 
 const ImageView = styled.View`
   align-items: center;
@@ -362,7 +426,7 @@ const HeadImage = styled.Image`
 `;
 
 const P2 = styled.Text`
-  font-size: 15px;
+  font-size: 12px;
   color: #e3b89b;
 `;
 
@@ -411,18 +475,6 @@ const Input = styled.TextInput`
   text-align-vertical: top;
 `;
 
-const ButtonX = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-const HomexButton = styled.TouchableOpacity`
-  color: white;
-  margin-right: 10px;
-  margin-top: 10px;
-  align-self: flex-end;
-`;
-
 const StartButton = styled.TouchableOpacity`
   background-color: #e9a97f;
   justify-content: center;
@@ -455,4 +507,21 @@ const ButtonText2 = styled.Text`
 const ButtonWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const BackButtonText = styled.Text`
+  font-size: 20px;
+  color: #fbeee6;
+  font-weight: normal;
+  font-family: BalooChettan2-SemiBold;
+`;
+const Header = styled.View`
+flex:1 
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+background: #E1854C;
+`
+const HeaderButtons = styled.TouchableOpacity`
+margin: 15px;
 `;
