@@ -6,8 +6,8 @@ import SendAssignment from '../Views/AdminViews/SendAssignment';
 import AssignmentList from '../Views/PatientViews/AssignmentList';
 import AdminHome from '../Views/AdminViews/AdminHome';
 import PatientHome from '../Views/PatientViews/PatientHome';
-import FetchForm from '../Views/PatientViews/FetchForm'
-import Construction from '../Views/Construction'
+import FetchForm from '../Views/PatientViews/FetchForm';
+import Construction from '../Views/Construction';
 
 export default () => {
   return (

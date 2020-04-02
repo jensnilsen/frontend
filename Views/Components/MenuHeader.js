@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-native";
-export default ({ history }) => {
+export default () => {
   return (
     <>
       <Container>

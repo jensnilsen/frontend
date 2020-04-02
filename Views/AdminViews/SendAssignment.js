@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import styled from 'styled-components';
 import React, { useState } from 'react';
 
@@ -35,7 +34,7 @@ export default ({ history }) => {
   const backToStart = () => {
     setSubmit(false)
     history.push('/sendassignment')
-    setQuestion(question - 1)
+    setQuestion(question - 1);
 
   }
 
@@ -45,11 +44,11 @@ export default ({ history }) => {
 
   const angsthantering = () => {
     setAssignmentId('Ångesthantering');
-    handleAssignmentId()
+    handleAssignmentId();
   }
   const sorkk = () => {
     setAssignmentId('sorkk');
-    handleAssignmentId()
+    handleAssignmentId();
   }
 
   const handleSubmit = () => {
@@ -63,15 +62,15 @@ export default ({ history }) => {
     })
       .then(response => {
         if (response.status !== 201) {
-          return console.log('nope');
+          return console.log('Couldnt send assignment');
         }
 
         response.json().then(data => {
           if (data.notFound !== true) {
             setSubmit(true);
-            console.log('login ok');
+            console.log('lassignment sent');
           } else {
-            console.log('login fail props wrong user or pass');
+            console.log('Something whent wrong');
           }
         });
       })

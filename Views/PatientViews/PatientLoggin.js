@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Loading from '../Components/Loading'
 
 export default ({ history }) => {
   const [loginFailed, setLoginFailed] = useState(false);
@@ -16,7 +15,7 @@ export default ({ history }) => {
   };
 
   const handleSubmit = () => {
-    console.log('handling submit', formValues);
+    console.log('handling submit');
     fetch('https://mendly.herokuapp.com/userlogin', {
       method: 'POST',
       body: JSON.stringify(formValues),
@@ -25,7 +24,7 @@ export default ({ history }) => {
       .then(response => {
         if (response.status !== 200) {
           setLoginFailed(true);
-          return console.log('nope');
+          return console.log('faled to login');
         }
         response.json()
           .then(data => {
@@ -45,7 +44,6 @@ export default ({ history }) => {
 
   return (
     <Wrapper>
-
       <Form>
         <AllInputWrapper>
           <ImageView>
@@ -79,9 +77,7 @@ export default ({ history }) => {
             password={true}
             required
           />
-
         </AllInputWrapper>
-
         <GoToButton type="submit" onPress={() => handleSubmit()}>
           <ButtonText>Login</ButtonText>
         </GoToButton>
@@ -92,14 +88,13 @@ export default ({ history }) => {
             <ChangeButtonText>🔐</ChangeButtonText>
           </ChangeLoginButton>
         </LocksWrapper>
-
       </Form>
-    </Wrapper >
+    </Wrapper>
   );
 };
 
 const Wrapper = styled.View`
-flex: 1;
+  flex: 1;
   flex-direction: row;
   align-items: stretch;
   justify-content: space-between;
@@ -112,12 +107,12 @@ const Form = styled.View`
 `;
 
 const LocksWrapper = styled.View`
-flex-direction: row;
-align-self: flex-end;
+  flex-direction: row;
+  align-self: flex-end;
 `
 
 const AllInputWrapper = styled.View`
-width: 87%;
+  width: 87%;
 `;
 
 const Input = styled.TextInput`

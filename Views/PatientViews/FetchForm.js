@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 
 export default ({ history }) => {
   const { accessToken } = useParams()
-  console.log('fetch view', accessToken)
   const { _id } = useParams();
   const [question, setQuestion] = useState(0);
   const id = _id
@@ -32,10 +31,9 @@ export default ({ history }) => {
   };
 
   const handleSubmit = () => {
-    console.log(id)
     setComplete(true);
     setSubmit(true)
-    console.log('handling sorkk answers', formValues);
+    console.log('handling sorkk answers');
     fetch(`https://mendly.herokuapp.com/${id}/update`, {
       method: 'PUT',
       body: JSON.stringify(formValues),

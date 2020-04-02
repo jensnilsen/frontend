@@ -18,3 +18,24 @@ might be a coment field to the tasks or perhaps a small chat to every part.
 Other things thats going to change.
 Implementing better state handler. (redux)
 cleaning up code and split up in to components.
+
+
+To run App on android emulator:
+1. 
+make sure to have enviroment set up
+I used https://reactnative.dev/docs/environment-setup
+
+2. 
+run npm i
+
+3. 
+start emulator
+(works on both android and ios, but at the moment it looks better on android)
+
+4. 
+run adb devices  , to make sure your emulator is connected. 
+run npx react-native run-android
+
+temmporary users and admins:
+Login user: username: "jens" , Password: "jens"
+Login admin: adminname: "admin" , password: "admin"

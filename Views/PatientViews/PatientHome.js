@@ -5,7 +5,7 @@ import MenuHeader from '../Components/MenuHeader'
 
 export default ({ history }) => {
   const { accessToken } = useParams()
-  console.log('patient is home', accessToken)
+  console.log('patient is home')
 
   return (
     <>

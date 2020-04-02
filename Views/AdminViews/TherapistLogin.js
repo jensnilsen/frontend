@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -15,7 +14,7 @@ export default ({ history }) => {
   };
 
   const handleSubmit = () => {
-    console.log('handling submit', formValues);
+    console.log('handling submit');
     fetch('https://mendly.herokuapp.com/adminlogin', {
       method: 'POST',
       body: JSON.stringify(formValues),
@@ -40,7 +39,7 @@ export default ({ history }) => {
           }
         });
       })
-      .catch(err => console.log('errodasdr:', err));
+      .catch(err => console.log('err:', err));
   };
 
   return (
