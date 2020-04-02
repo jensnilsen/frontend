@@ -56,7 +56,7 @@ export default ({ history }) => {
     clearInputs();
     setComplete(true);
     console.log('handling sorkk answers', formValues);
-    fetch('http://192.168.0.103:8080/assignment ', {
+    fetch('https://mendly.herokuapp.com/assignment', {
       method: 'POST',
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' },

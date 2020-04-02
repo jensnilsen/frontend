@@ -36,7 +36,7 @@ export default ({ history }) => {
     setComplete(true);
     setSubmit(true)
     console.log('handling sorkk answers', formValues);
-    fetch(`http://192.168.0.103:8080/${id}/update`, {
+    fetch(`https://mendly.herokuapp.com/${id}/update`, {
       method: 'PUT',
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' },
@@ -356,45 +356,33 @@ const MainContainer2 = styled.View`
   flex-direction: column;
   align-items: stretch;
   margin: 15px;
-  border-width: 1px;
-  border-color: red;
 `;
 const SubmitContainer = styled.View`
 width: 100%;
   flex-direction: column;
   align-items: stretch;
-  border-width: 4px;
-  border-color: red;
 `;
 
 const FormSection = styled.View`
 flex: 1
 flex-direction: column;
   justify-content: space-between;
-  border-width: 2px;
-  border-color: blue;
 `;
 const ProbarWrap = styled.View`
 flex-direction: row;
   align-items: stretch;
-  border-width: 2px;
-  border-color: green;
 `;
 
 const FormView = styled.View`
 flex: 1
 flex-direction: column;
 align-items: stretch;
-border-width: 2px;
-border-color: yellow;
 `;
 
 const InputHeadWrap = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin: 10px 10px 0px 10px;
-  border-width: 2px;
-border-color: orange;
 `;
 const SpaceWrapper = styled.View``
 const ProBar = styled.View`

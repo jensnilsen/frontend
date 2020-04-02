@@ -6,20 +6,20 @@ import Loading from '../Components/Loading';
 
 export default ({ history }) => {
   const { accessToken } = useParams()
-  console.log('assignmentlist', accessToken)
+  console.log('in assignmentlist')
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const url = `http://192.168.0.103:8080/assignments/`;
 
   const fetchAssignmentById = () => {
+    console.log('fetching list')
     setLoading(true)
-    fetch(url)
+    fetch('https://mendly.herokuapp.com/assignments')
       .then(res => res.json())
       .then(json => {
-        console.log('Get fetch assign', json);
         setData(json);
         setLoading(false)
       });
+
   }
   useEffect(() => {
     fetchAssignmentById();
@@ -107,13 +107,7 @@ flex: 1;
   align-items: stretch;
   background-color: #fff;
 `;
-const Header = styled.View`
-flex:1 
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-background: #E1854C;
-`
+
 const Container = styled.View`
   flex: 11;
   flex-direction: row;
@@ -158,15 +152,21 @@ const DoneHeader = styled.Text`
   font-family: BalooChettan2-SemiBold;
 `;
 
-const HeaderButtons = styled.TouchableOpacity`
-margin: 15px;
-`;
-
 const BackButtonText = styled.Text`
   font-size: 20px;
   color: #fbeee6;
   font-weight: normal;
   font-family: BalooChettan2-SemiBold;
+`;
+const Header = styled.View`
+flex:1 
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+background: #E1854C;
+`
+const HeaderButtons = styled.TouchableOpacity`
+margin: 15px;
 `;
 
 const H1 = styled.Text`

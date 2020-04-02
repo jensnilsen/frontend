@@ -12,11 +12,11 @@ export default ({ history }) => {
             <Icon>📚</Icon>
             <ButtonText>Uppgifter</ButtonText>
           </AssButton>
-          <ModellButton onPress={() => history.push('/')}>
+          <ModellButton onPress={() => history.push('/fetchform/construction')}>
             <Icon>📈</Icon>
             <ButtonText>Modeller</ButtonText>
           </ModellButton>
-          <TextButton onPress={() => history.push('/assignmentlist')}>
+          <TextButton onPress={() => history.push('/fetchform/construction')}>
             <Icon>📜</Icon>
             <ButtonText>Texter</ButtonText>
           </TextButton>

@@ -17,7 +17,7 @@ export default ({ history }) => {
 
   const handleSubmit = () => {
     console.log('handling submit', formValues);
-    fetch('http://192.168.0.103:8080/userlogin', {
+    fetch('https://mendly.herokuapp.com/userlogin', {
       method: 'POST',
       body: JSON.stringify(formValues),
       headers: { 'Content-Type': 'application/json' },
@@ -90,11 +90,6 @@ export default ({ history }) => {
             type="button"
             onPress={() => history.push('/therapistlogin')}>
             <ChangeButtonText>🔐</ChangeButtonText>
-          </ChangeLoginButton>
-          <ChangeLoginButton
-            type="button"
-            onPress={() => history.push('/adminhome')}>
-            <ChangeButtonText>🔓</ChangeButtonText>
           </ChangeLoginButton>
         </LocksWrapper>
 
